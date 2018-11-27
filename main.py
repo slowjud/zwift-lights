@@ -11,7 +11,7 @@ led_name = 'desk'
 led_ip = '192.168.1.1'
 
 class GracefulKiller:
-    bulb = None
+    lights = None
     def __init__ (self, lights):
         self.lights = lights
         signal.signal(signal.SIGINT, self.exit_gracefully)
@@ -29,11 +29,11 @@ def main_loop ():
     counter = 1
     while True:
         counter -= 1
-        zone = zwift.current_zone()
-        rate = zwift.current_heartrate()
         if counter == 0:
+            rate = zwift.current_heartrate()
             lights.heart_flow(rate)
             counter = random.randint(20, 30)
+        zone = zwift.current_zone()
         lights.power_flow(zone)
 
 if __name__ == "__main__":
